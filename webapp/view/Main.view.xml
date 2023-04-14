@@ -1,0 +1,46 @@
+<mvc:View xmlns:f="sap.f" controllerName="bupamap.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns:ol="incentergy.ol" xmlns:layer="incentergy.ol.layer" xmlns:source="incentergy.ol.source"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <f:FlexibleColumnLayout id="fcl" layout="TwoColumnsMidExpanded">
+                <f:beginColumnPages>
+                    <Page id="pageTable">
+                        <Table growing="true" growingScrollToLoad="true" items="{/C_BusinessPartner}">
+                            <columns>
+                                <Column>
+                                    <Text text="Name" />
+                                </Column>
+                                <Column>
+                                    <Text text="Addresse" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <Text text="{Name}" />
+                                    <Text text="{AddressLine1Text}" />
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </Page>
+                </f:beginColumnPages>
+                <f:midColumnPages>
+                    <Page id="pageMap">
+                        <ol:Map center="1152747.3744924355, 6585240.978424183" zoom="5" id="map">
+                            <layer:Tile>
+                                <source:OSM url="{= 'https://{a-c}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=e5da76567a144d2888f7669cfcfc20b6'}"></source:OSM>
+                            </layer:Tile>
+                            <layer:Vector>
+                                <source:Vector id="vectorSource" addfeature="onAddfeature" features="{path: '/C_BusinessPartner', parameters: {'$top': 10}}">
+                                    <source:features>
+                                        <ol:Feature wkt="{path: 'AddressLine1Text', formatter: '.getCoordinates'}" />
+                                    </source:features>
+                                </source:Vector>
+                            </layer:Vector>
+                        </ol:Map>
+                    </Page>
+                </f:midColumnPages>
+            </f:FlexibleColumnLayout>
+        </content>
+    </Page>
+</mvc:View>
