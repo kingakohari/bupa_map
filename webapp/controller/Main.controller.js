@@ -39,7 +39,7 @@ sap.ui.define([
                 const oBupaVectorSource= this.byId("vectorSource");
                 const aExtent = oBupaVectorSource.getExtent();
                 if(aExtent && aExtent[0] !== Infinity) {
-                    this.byId("map").viewFit(aExtent, true);
+                    this.byId("map").viewFit(aExtent, false);
                 }
             },
 /*             onFilterBupa: function(oEvent) {
