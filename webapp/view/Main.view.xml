@@ -6,7 +6,7 @@
             <f:FlexibleColumnLayout id="fcl" layout="TwoColumnsMidExpanded">
                 <f:beginColumnPages>
                     <Page id="pageTable">
-                        <Table growing="true" growingScrollToLoad="true" items="{/C_BusinessPartner}">
+                        <Table id="table" growing="true" growingScrollToLoad="true" items="{/C_BusinessPartner}">
                             <columns>
                                 <Column>
                                     <Text text="Name" />
@@ -31,9 +31,9 @@
                                 <source:OSM url="{= 'https://{a-c}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=e5da76567a144d2888f7669cfcfc20b6'}"></source:OSM>
                             </layer:Tile>
                             <layer:Vector>
-                                <source:Vector id="vectorSource" addfeature="onAddfeature" features="{path: '/C_BusinessPartner', parameters: {'$top': 10}}">
+                                <source:Vector id="vectorSource" addfeature="onAddfeature" features="{Map>/features}">
                                     <source:features>
-                                        <ol:Feature wkt="{path: 'AddressLine1Text', formatter: '.getCoordinates'}" />
+                                        <ol:Feature wkt="{Map>wkt}" />
                                     </source:features>
                                 </source:Vector>
                             </layer:Vector>
