@@ -1,5 +1,6 @@
 <mvc:View xmlns:f="sap.f" controllerName="bupamap.controller.Main"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns:ol="incentergy.ol" xmlns:layer="incentergy.ol.layer" xmlns:source="incentergy.ol.source"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns:ol="incentergy.ol" xmlns:layer="incentergy.ol.layer" xmlns:source="incentergy.ol.source" 
+    xmlns:style="incentergy.ol.style" xmlns:Map="sap.ui.vbm"
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
         <content>
@@ -48,7 +49,7 @@
                             <layer:Vector>
                                 <source:Vector id="vectorSource" addfeature="onAddfeature" features="{Map>/features}">
                                     <source:features>
-                                        <ol:Feature wkt="{Map>wkt}" />
+                                        <ol:Feature wkt="{Map>wkt}" color="red" />                                         
                                     </source:features>
                                 </source:Vector>
                             </layer:Vector>
