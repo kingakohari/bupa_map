@@ -19,17 +19,21 @@ sap.ui.define([
                 const oItemsBinding = this.byId("table").getBindingInfo("items");
                 oItemsBinding.events = {
                     "dataReceived" : () => {
-                        const oDataModel = this.getView().getModel();
-                        const aBusinessPartner = this.byId("table").getBinding("items").getAllCurrentContexts().map(oContext => oDataModel.getProperty(oContext.getPath()));
-                        const aFeaturePromises = aBusinessPartner.map(oBusinessPartner => {
-                            return this.getCoordinates(oBusinessPartner.AddressLine1Text);
-                        });
-                        Promise.all(aFeaturePromises).then(aFeatures => {
-                            const oData = {features: aFeatures};
-                            oMapModel.setData(oData);
-                        });
+                        this.rebuildBupaPoints();
                     }
                 };
+            },
+            rebuildBupaPoints: function() {
+                const oMapModel = this.getView().getModel("Map");
+                const oDataModel = this.getView().getModel();
+                const aBusinessPartner = this.byId("table").getBinding("items").getAllCurrentContexts().map(oContext => oDataModel.getProperty(oContext.getPath()));
+                const aFeaturePromises = aBusinessPartner.map(oBusinessPartner => {
+                    return this.getCoordinates(oBusinessPartner.AddressLine1Text);
+                });
+                Promise.all(aFeaturePromises).then(aFeatures => {
+                    const oData = {features: aFeatures};
+                    oMapModel.setData(oData);
+                });
             },
             onAddfeature: function() {
                 const oBupaVectorSource= this.byId("vectorSource");
