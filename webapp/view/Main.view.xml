@@ -7,6 +7,13 @@
                 <f:beginColumnPages>
                     <Page id="pageTable">
                         <Table id="table" growing="true" growingScrollToLoad="true" items="{/C_BusinessPartner}">
+                            <headerToolbar>
+                                <Toolbar id="toolbar">
+                                    <Label id="tableHeader" text="Geschäftspartner"/>
+                                    <ToolbarSpacer id="toolbarSpacer" />
+                                    <SearchField id="searchField" width="auto" search=".onFilterBupa" />
+                                </Toolbar>
+                            </headerToolbar>
                             <columns>
                                 <Column>
                                     <Text text="Name" />

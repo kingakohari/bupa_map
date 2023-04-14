@@ -1,11 +1,13 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel"
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel) {
+    function (Controller, JSONModel, Filter, FilterOperator) {
         "use strict";
 
         const searchCache = {};
@@ -30,10 +32,18 @@ sap.ui.define([
                 };
             },
             onAddfeature: function() {
-                var oCultivationVectorSource= this.byId("vectorSource");
-                var aExtent = oCultivationVectorSource.getExtent();
+                const oBupaVectorSource= this.byId("vectorSource");
+                const aExtent = oBupaVectorSource.getExtent();
                 if(aExtent && aExtent[0] !== Infinity) {
                     this.byId("map").viewFit(aExtent, true);
+                }
+            },
+            onFilterBupa: function(oEvent) {
+                const sSearch = oEvent.getParameter("query");
+                if(sSearch) {
+                    this.byId("table").getBinding("items").filter([new Filter("Name", FilterOperator.Contains, sSearch)]);
+                } else {
+                    this.byId("table").getBinding("items").filter([]);
                 }
             },
             getCoordinates: function(sValue) {
